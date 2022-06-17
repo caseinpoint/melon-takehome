@@ -23,7 +23,7 @@ for username in usernames:
     for start_time in start_times:
         new_reservaton = Reservation(username=username, start_time=start_time)
 
-    db.session.add(new_reservaton)
+        db.session.add(new_reservaton)
 
 db.session.commit()
 
