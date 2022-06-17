@@ -1,7 +1,7 @@
 from subprocess import run
 from server import app
 from model import connect_to_db, db, Reservation
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 
 run(['dropdb', 'melon_reservations'])
 run(['createdb', 'melon_reservations'])
