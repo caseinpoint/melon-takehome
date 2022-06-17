@@ -1,10 +1,10 @@
-import os
+from subprocess import run
 import model
 import server
 import datetime
 
-os.system("dropdb melon_reservations")
-os.system("createdb melon_reservations")
+run(['dropdb', 'melon_reservations'])
+run(['createdb', 'melon_reservations'])
 
 model.connect_to_db(server.app)
 model.db.create_all()
