@@ -22,4 +22,3 @@ for start_time in start_times:
     db.session.add(new_reservaton)
 
 db.session.commit()
-

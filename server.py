@@ -2,10 +2,12 @@ from flask import Flask, render_template, request, flash, session, redirect, jso
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 from model import Reservation, db, connect_to_db
-import os
+from os import environ
 
 app = Flask(__name__)
-app.secret_key = os.environ["APP_SECRET_KEY"]
+
+app.secret_key = environ["APP_SECRET_KEY"]
+
 
 @app.route("/")
 def homepage():
@@ -61,6 +63,7 @@ def delete_reservation():
 def make_reservation():
     """ Create a reservation with the specified user and time."""
     reservation_start = parse(request.form.get("start_time"))
+    # reservation_start = parse(request.form.get("start_time"), ignoretz=True)
     username = session["username"]
 
     new_reservation = Reservation.create_reservation(username, reservation_start)

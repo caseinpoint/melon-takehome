@@ -1,8 +1,14 @@
 // set start and end time to be after current time
+const now = new Date();
+// update hour using timezone offset (minutes)
+now.setHours(now.getHours() - now.getTimezoneOffset()/60);
+const nowStr = now.toISOString().substring(0,16);
+// console.log(now, nowStr);
+
 const startTime = document.querySelector('#datetime_start');
-startTime.min = new Date().toISOString().substring(0,16);
+startTime.min = nowStr;
 const endTime = document.querySelector('#datetime_end');
-endTime.min = new Date().toISOString().substring(0,16);
+endTime.min = nowStr;
 
 // retrieve available reservations by sending AJAX request to sever
 document.querySelector('#schedule').addEventListener('submit', (evt) => {
@@ -26,10 +32,12 @@ document.querySelector('#schedule').addEventListener('submit', (evt) => {
                 document.getElementById('reservation_text').innerHTML 
                     = 'Below is the current availability. Select a time that works for you!';
                 for (time of res) {
+                    const betterTime = time.slice(0, time.length - 4);
+                    console.log(betterTime);
                     document.getElementById('available_reservations').insertAdjacentHTML(
                         'beforeend',
                         `<form action="/reservations/book" method="POST">
-                        <input value="${time}" name='start_time' type='submit' class='schedule_res'>
+                        <input value="${betterTime}" name='start_time' type='submit' class='schedule_res'>
                         </form>`);
                 }
             }
